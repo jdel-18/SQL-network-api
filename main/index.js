@@ -1,23 +1,22 @@
 const express = require('express');
-const mongoose = require('mongoose');
+const db = require('./config/connections');
 const routes = require('./routes');
+
+const cwd = process.cwd();
 
 const PORT = process.env.PORT || 3001;
 const app = express();
+
+const activity = cwd.includes('API-social-network')
+  ? cwd.split('/API-social-network/')[1]
+  : cwd;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(routes);
 
-mongoose.connect('mongodb://localhost/social-network', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true,
-  useFindAndModify: false,
-});
-
-mongoose.connection.once('open', () => {
+db.once('open', () => {
   app.listen(PORT, () => {
-    console.log(`API server running on port ${PORT}!`);
+    console.log(`API server for ${activity} running on port ${PORT}!`);
   });
 });

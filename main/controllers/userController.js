@@ -111,4 +111,42 @@ module.exports = {
       res.status(500).json(err);
     }
   },
+
+  async addThought(req, res) {
+    try {
+      const thought = await Thought.create(req.body);
+      const user = await User.findOneAndUpdate(
+        { _id: req.params.userId },
+        { $push: { thoughts: thought._id } },
+        { new: true }
+      );
+
+      if (!user) {
+        return res.status(404).json({ message: 'No user with this ID' });
+      }
+
+      res.json({ user, thought });
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  },
+
+  async removeThought(req, res) {
+    try {
+      const thought = await Thought.findOneAndDelete({ _id: req.params.thoughtId });
+      const user = await User.findOneAndUpdate(
+        { _id: req.params.userId },
+        { $pull: { thoughts: req.params.thoughtId } },
+        { new: true }
+      );
+
+      if (!user) {
+        return res.status(404).json({ message: 'No user with this ID' });
+      }
+
+      res.json({ user, thought });
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  },
 };

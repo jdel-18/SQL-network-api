@@ -24,7 +24,7 @@ const generateThoughts = async (thoughtCount, users) => {
 
 const addThoughtsToUsers = async (thoughts, users) => {
   for (let i = 0; i < users.length; i++) {
-    const randomThoughts = getRandomItemsFromArray(thoughts, 5); // Assign 5 random thoughts to each user
+    const randomThoughts = getRandomItemsFromArray(thoughts, 5); 
     users[i].thoughts = randomThoughts.map((thought) => thought._id);
     await users[i].save();
   }
@@ -37,13 +37,10 @@ const getRandomItemsFromArray = (array, count) => {
 
 const seedData = async () => {
   try {
-    // Generate users
     const users = await generateUsers(10);
 
-    // Generate thoughts
     const thoughts = await generateThoughts(20, users);
 
-    // Add thoughts to users
     await addThoughtsToUsers(thoughts, users);
 
     console.log('Data seeding completed successfully.');
