@@ -10,11 +10,11 @@ const seedData = async () => {
 
     const thoughts = await Thought.create([
       {
-        thoughtText: 'Thought 1',
+        thoughtText: 'today was extremely hot, I need to get a fan!',
         username: users[0].username,
       },
       {
-        thoughtText: 'Thought 2',
+        thoughtText: 'Is it just me or is it hot in here?',
         username: users[1].username,
       },
     ]);

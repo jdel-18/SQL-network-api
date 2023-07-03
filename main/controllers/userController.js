@@ -64,7 +64,6 @@ module.exports = {
 
       await Thought.deleteMany({ username: user.username });
 
-      // Remove the user from the friend lists of other users
       await User.updateMany(
         { _id: { $in: user.friends } },
         { $pull: { friends: req.params.userId } }
