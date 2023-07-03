@@ -3,8 +3,8 @@ const { User, Thought } = require('../models');
 const seedData = async () => {
   try {
     const users = await User.create([
-      { username: 'User1', email: 'user1@example.com' },
-      { username: 'User2', email: 'user2@example.com' },
+      { username: 'papster', email: 'papster@mail.com' },
+      { username: 'linux', email: 'linux@mail.com' },
 
     ]);
 
